@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        textarea {
+            resize: none;
+        }
+
+        .text-div {
+            width: 30%;
+            display: block;
+            margin-right: 2%;
+        }
+
+        .main {
+            margin-left: 150px;
+            margin-right: 150px;
+        }
+
+        .top {
+            width: 100%;
+            display: flex;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <div class="top">
+            <div class="text-div">
+                <textarea id="left" class="text-class" type="text" rows="40" cols="50"></textarea>
+            </div>
+            <div class="text-div">
+                <textarea id="right" class="text-class" type="text" rows="40" cols="50"></textarea>
+            </div>
+            <div class="text-div">
+                <textarea id="result" class="text-class" type="text" rows="40" cols="50"></textarea>
+            </div>
+        </div>
+        <div>
+            <button onclick="doCompare(1)">左对右去重</button>
+            <button onclick="doCompare(2)">右对去左重</button>
+            <button onclick="reset()">重置</button>
+        </div>
+    </div>
+
+</body>
+<script>
+    function doCompare(type) {
+        var left = document.getElementById("left").value;
+        var right = document.getElementById("right").value;
+        var list = []
+        if (type === 1) {
+            list = compare(left.split('\n'), right.split('\n'));
+        } else {
+            list = compare(right.split('\n'), left.split('\n'));
+        }
+        var str = '';
+        for (var i = 0; i < list.length; i++) {
+            str += list[i] + "\n";
+        }
+        document.getElementById("result").value = str;
+    }
+
+    function reset() {
+        var list = document.getElementsByClassName("text-class");
+        for (var i = 0; i < list.length; i++) {
+            var element = list[i];
+            element.value = "";
+        }
+    }
+
+    function compare(arr1, arr2) {
+        return findFirstDiff(removeEmpty(arr1), removeEmpty(arr2));
+    }
+
+    function removeEmpty(list) {
+        var newList = [];
+        for (var i = 0; i < list.length; i++) {
+            var str = list[i].trim();
+            if (str) {
+                newList.push(str);
+            }
+        }
+        return newList;
+    }
+
+    function findFirstDiff(first, second) {
+        var newArr = [];
+        for (var i = 0; i < first.length; i++) {
+            if (second.indexOf(first[i]) === -1) {
+                newArr.push(first[i]);
+            }
+        }
+        return newArr;
+    }
+</script>
+
+</html>
