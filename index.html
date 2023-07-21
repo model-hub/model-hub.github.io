@@ -37,18 +37,23 @@
                 <textarea id="right" class="text-class" type="text" rows="40" cols="50"></textarea>
             </div>
             <div class="text-div">
-                <textarea id="result" class="text-class" type="text" rows="40" cols="50"></textarea>
+                <textarea id="result" class="text-class" type="text" rows="40" cols="50" readonly></textarea>
             </div>
         </div>
         <div>
             <button onclick="doCompare(1)">左对右去重</button>
             <button onclick="doCompare(2)">右对去左重</button>
             <button onclick="reset()">重置</button>
+            <button onclick="copy()">复制结果</button>
         </div>
     </div>
 
 </body>
 <script>
+    function copy() {
+        document.getElementById("result").select();
+        document.execCommand('copy');
+    }
     function doCompare(type) {
         var left = document.getElementById("left").value;
         var right = document.getElementById("right").value;
